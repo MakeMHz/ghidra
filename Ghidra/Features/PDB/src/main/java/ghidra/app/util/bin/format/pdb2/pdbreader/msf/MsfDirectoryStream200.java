@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ghidra.app.util.bin.format.pdb2.pdbreader.msf;
+package coffprocesscv.pdbreader.msf;
 
 /**
  * This is the v200 of {@link MsfDirectoryStream}.  It is essentially no different than

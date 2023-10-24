@@ -4,18 +4,18 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ghidra.app.util.bin.format.pdb2.pdbreader;
+package coffprocesscv.pdbreader;
 
-import ghidra.app.util.bin.format.pdb2.pdbreader.symbol.*;
+import coffprocesscv.pdbreader.symbol.*;
 
 abstract public class RecordNumber {
 
@@ -78,7 +78,7 @@ abstract public class RecordNumber {
 	 * then why not just use the standard "TYPE").  ITEM->TYPE is giving what seems to be too many
 	 * unknown primitives.  I do not trust either of these.  The API indicates:
 	 * {@code  CV_typ_t        typind;             // type index describing function signature} for
-	 * {@link IndirectCallSiteInfoMsSymbol} and 
+	 * {@link IndirectCallSiteInfoMsSymbol} and
 	 * {@code CV_ItemId       inlinee;   // CV_ItemId of inlinee} for
 	 * {@link InlinedFunctionCallsiteMsSymbol}.
 	 * <P>
