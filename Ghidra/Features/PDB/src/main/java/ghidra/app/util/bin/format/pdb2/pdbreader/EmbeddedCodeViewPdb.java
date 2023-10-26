@@ -57,11 +57,25 @@ public class EmbeddedCodeViewPdb extends AbstractPdb {
 		switch(streamNumber) {
 		case TYPE_PROGRAM_INTERFACE_STREAM_NUMBER:
 			try {
-				MemoryBlock block = program.getMemory().getBlock(".debug$T");
-				byte[] data = new byte[(int) block.getSize()];
-				block.getBytes(block.getStart(), data);
+				MemoryBlock blockT = program.getMemory().getBlock(".debug$T");
+				MemoryBlock blockP = program.getMemory().getBlock(".debug$P");
 				
-				return new PdbByteReader(data);
+				if(blockT != null && blockP != null)
+					throw new IOException("Unexpected .debug$T and .debug$P sections found!");
+
+				// Types
+				if(blockT != null) {
+					byte[] data = new byte[(int)blockT.getSize()];
+					blockT.getBytes(blockT.getStart(), data);
+					return new PdbByteReader(data);
+				}
+				
+				// Pre-compiled types
+				if(blockP != null) {
+					byte[] data = new byte[(int)blockP.getSize()];
+					blockP.getBytes(blockP.getStart(), data);
+					return new PdbByteReader(data);
+				}
 			} catch (MemoryAccessException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
