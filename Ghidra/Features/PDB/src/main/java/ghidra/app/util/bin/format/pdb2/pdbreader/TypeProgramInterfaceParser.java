@@ -38,6 +38,10 @@ public class TypeProgramInterfaceParser {
 	public static final int TI50_ID = 19961031;    // 0x013094c7
 	public static final int TI70_ID = 19990903;    // 0x01310977
 	public static final int TI80_ID = 20040203;    // 0x0131ca0b
+	
+	// CodeView (embedded)
+	public static final int TI02CV_ID = 2; // 0x00000002
+	public static final int TI04CV_ID = 4; // 0x00000004
 
 	//==============================================================================================
 	// API
@@ -88,6 +92,12 @@ public class TypeProgramInterfaceParser {
 			case TI80_ID:
 				typeProgramInterface =
 					new TypeProgramInterface800(pdb, getCategory(), streamNumber);
+				break;
+			// CodeView (embedded)
+			case TI02CV_ID:
+			case TI04CV_ID:
+				typeProgramInterface =
+					new TypeProgramInterfaceCV(pdb, getCategory(), streamNumber);
 				break;
 			default:
 				throw new PdbException("Unknown TPI Version: " + versionNumber);

@@ -1,0 +1,100 @@
+/* ###
+ * IP: GHIDRA
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package coffprocesscv.pdbreader;
+
+import java.io.IOException;
+import java.io.Writer;
+
+import coffprocesscv.pdbreader.msf.Msf;
+import coffprocesscv.pdbreader.msf.MsfStream;
+import ghidra.program.model.listing.Program;
+import ghidra.program.model.mem.MemoryAccessException;
+import ghidra.program.model.mem.MemoryBlock;
+import ghidra.util.exception.CancelledException;
+import ghidra.util.task.TaskMonitor;
+
+/**
+ * This class is the version of {@link AbstractPdb} for embedded CodeView data.
+ */
+public class EmbeddedCodeViewPdb extends AbstractPdb {
+	private static final int TYPE_PROGRAM_INTERFACE_STREAM_NUMBER = 2;
+	
+	protected Program program;
+
+	//==============================================================================================
+	// Package-Protected Internals
+	//==============================================================================================
+	/**
+	 * Constructor
+	 * @param msf {@link Msf} foundation for the PDB
+	 * @param pdbOptions {@link PdbReaderOptions} used for processing the PDB
+	 * @throws IOException upon file IO seek/read issues
+	 * @throws PdbException upon unknown value for configuration or error in processing components
+	 */
+	public EmbeddedCodeViewPdb(Program program, Msf msf, PdbReaderOptions pdbOptions) throws IOException, PdbException {
+		super(msf, pdbOptions);
+		
+		// Store reference to the current program so we can load in sections of memory later on.
+		this.program = program;
+	}
+	
+	@Override
+	PdbByteReader getReaderForStreamNumber(int streamNumber, int streamOffset, int numToRead)
+			throws IOException, CancelledException {	
+		switch(streamNumber) {
+		case TYPE_PROGRAM_INTERFACE_STREAM_NUMBER:
+			try {
+				MemoryBlock block = program.getMemory().getBlock(".debug$T");
+				byte[] data = new byte[(int) block.getSize()];
+				block.getBytes(block.getStart(), data);
+				
+				return new PdbByteReader(data);
+			} catch (MemoryAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
+		}
+		
+		return PdbByteReader.DUMMY;
+	}
+	
+	@Override
+	public
+	void deserializeIdentifiersOnly(TaskMonitor monitor)
+			throws IOException, PdbException, CancelledException {
+		PdbByteReader reader = getDirectoryReader();
+		deserializeVersionSignatureAge(reader);
+	}
+
+	//==============================================================================================
+	// Abstract Methods
+	//==============================================================================================
+	@Override
+	public
+	void deserializeDirectory()
+			throws IOException, PdbException, CancelledException {
+
+	}
+
+	@Override
+	public void dumpDirectory(Writer writer) throws IOException {
+		StringBuilder builder = new StringBuilder();
+		builder.append(dumpVersionSignatureAge());
+		writer.write(builder.toString());
+	}
+
+}
