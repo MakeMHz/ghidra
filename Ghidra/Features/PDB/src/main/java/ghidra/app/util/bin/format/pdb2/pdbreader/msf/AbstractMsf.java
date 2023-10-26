@@ -144,7 +144,6 @@ public abstract class AbstractMsf implements Msf {
 	public AbstractMsf(RandomAccessFile file, String filename, TaskMonitor monitor,
 			PdbReaderOptions pdbOptions)
 			throws IOException, PdbException {
-		Objects.requireNonNull(file, "file may not be null");
 		this.filename = Objects.requireNonNull(filename, "filename may not be null");
 		this.monitor = TaskMonitor.dummyIfNull(monitor);
 		this.pdbOptions = Objects.requireNonNull(pdbOptions, "PdbOptions may not be null");
@@ -159,7 +158,8 @@ public abstract class AbstractMsf implements Msf {
 		pageSize = 0x1000;
 		configureParameters();
 		// Create components.
-		fileReader = new MsfFileReader(this, file);
+		if(file != null)
+			fileReader = new MsfFileReader(this, file);
 		create();
 	}
 
