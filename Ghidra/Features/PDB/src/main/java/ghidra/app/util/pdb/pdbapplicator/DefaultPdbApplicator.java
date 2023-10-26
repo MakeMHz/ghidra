@@ -4,16 +4,16 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ghidra.app.util.pdb.pdbapplicator;
+package coffprocesscv.pdbapplicator;
 
 import java.math.BigInteger;
 import java.util.*;
@@ -27,13 +27,13 @@ import ghidra.app.cmd.function.CreateFunctionCmd;
 import ghidra.app.cmd.label.SetLabelPrimaryCmd;
 import ghidra.app.util.*;
 import ghidra.app.util.bin.format.pdb.PdbParserConstants;
-import ghidra.app.util.bin.format.pdb2.pdbreader.*;
-import ghidra.app.util.bin.format.pdb2.pdbreader.symbol.*;
-import ghidra.app.util.bin.format.pdb2.pdbreader.type.AbstractMsType;
+import coffprocesscv.pdbreader.*;
+import coffprocesscv.pdbreader.symbol.*;
+import coffprocesscv.pdbreader.type.AbstractMsType;
 import ghidra.app.util.bin.format.pe.cli.tables.CliAbstractTableRow;
 import ghidra.app.util.importer.MessageLog;
 import ghidra.app.util.pdb.PdbCategories;
-import ghidra.app.util.pdb.pdbapplicator.SymbolGroup.AbstractMsSymbolIterator;
+import coffprocesscv.pdbapplicator.SymbolGroup.AbstractMsSymbolIterator;
 import ghidra.framework.options.Options;
 import ghidra.graph.*;
 import ghidra.graph.algo.GraphNavigator;

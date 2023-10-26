@@ -4,22 +4,22 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ghidra.app.util.pdb.pdbapplicator;
+package coffprocesscv.pdbapplicator;
 
 import ghidra.app.util.DataTypeNamingUtil;
-import ghidra.app.util.bin.format.pdb2.pdbreader.PdbException;
-import ghidra.app.util.bin.format.pdb2.pdbreader.RecordNumber;
-import ghidra.app.util.bin.format.pdb2.pdbreader.type.AbstractMsType;
-import ghidra.app.util.bin.format.pdb2.pdbreader.type.CallingConvention;
+import coffprocesscv.pdbreader.PdbException;
+import coffprocesscv.pdbreader.RecordNumber;
+import coffprocesscv.pdbreader.type.AbstractMsType;
+import coffprocesscv.pdbreader.type.CallingConvention;
 import ghidra.program.model.data.DataType;
 import ghidra.program.model.data.FunctionDefinitionDataType;
 import ghidra.program.model.lang.CompilerSpec;
@@ -241,10 +241,10 @@ public abstract class AbstractFunctionTypeApplier extends MsTypeApplier {
 				case THISCALL: // "this" passed in register (we have not yet seen this)
 					convention = CompilerSpec.CALLING_CONVENTION_thiscall; // Is this correct if in reg?
 					break;
-				case NEAR_C: // we have seen this one 
+				case NEAR_C: // we have seen this one
 					convention = CompilerSpec.CALLING_CONVENTION_cdecl;
 					break;
-				case NEAR_VECTOR: // we have seen this one 
+				case NEAR_VECTOR: // we have seen this one
 					convention = CompilerSpec.CALLING_CONVENTION_vectorcall;
 					break;
 				default:

@@ -4,23 +4,23 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ghidra.app.util.pdb.pdbapplicator;
+package coffprocesscv.pdbapplicator;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import ghidra.app.util.bin.format.pdb2.pdbreader.PdbLog;
-import ghidra.app.util.bin.format.pdb2.pdbreader.symbol.*;
-import ghidra.app.util.bin.format.pdb2.pdbreader.type.AbstractMsType;
+import coffprocesscv.pdbreader.PdbLog;
+import coffprocesscv.pdbreader.symbol.*;
+import coffprocesscv.pdbreader.type.AbstractMsType;
 import ghidra.program.model.data.DataTypeManager;
 import ghidra.program.model.listing.Program;
 import ghidra.util.Msg;
@@ -28,7 +28,7 @@ import ghidra.util.Msg;
 /**
  * Metrics captured during the application of a PDB.  This is a Ghidra class separate from the
  * PDB API that we have crafted to help us quantify and qualify the ability apply the PDB
- * to a {@link DataTypeManager} and/or {@link Program}. 
+ * to a {@link DataTypeManager} and/or {@link Program}.
  */
 public class PdbApplicatorMetrics {
 
@@ -68,7 +68,7 @@ public class PdbApplicatorMetrics {
 		LocalThreadStorage3216MsSymbol.PDB_ID,
 		LocalThreadStorage32MsSymbol.PDB_ID,
 		LocalThreadStorage32StMsSymbol.PDB_ID,
-		
+
 		// AbstractUserDefinedTypeMsSymbol
 		CobolUserDefinedType16MsSymbol.PDB_ID,
 		CobolUserDefinedTypeMsSymbol.PDB_ID,
@@ -89,7 +89,7 @@ public class PdbApplicatorMetrics {
 	 * List of symbols seen (by their ID) as Public symbols.
 	 */
 	//@formatter:off
-	private static final Set<Integer> EXPECTED_LINKER_SYMBOLS = Set.of(	
+	private static final Set<Integer> EXPECTED_LINKER_SYMBOLS = Set.of(
 		PeCoffSectionMsSymbol.PDB_ID,
 		TrampolineMsSymbol.PDB_ID,
 		ObjectNameMsSymbol.PDB_ID,
